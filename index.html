@@ -1,41 +1,38 @@
-<div id="b1">
-    <div>NO PARAMS</div>
-</div>
-<div id="b2">
-    <div>WITH PARAMS</div>
-</div>
+<input onblur="f(this)" />
+<ul id="btns">
+</ul>
 <script>
-    const G = {
-        MAINNET: "https://neofura.ngd.network",
-        BASE58CHARS: "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz",
-        type: { 0: "Any", 16: "Boolean", 17: "Integer", 18: "ByteString", 19: "String", 20: "Address", 21: "Uint256", 22: "ECPoint", 255: "void", },
-        scriptHash: "0x48c40d4666f93408be1bef038b6722404d9a4c2a",
-    };
-    window.addEventListener("NEOLine.N3.EVENT.READY", () => window.neolinen3 = new window.NEOLineN3.Init());
-
-    fetch(G.MAINNET, { method: "POST", body: JSON.stringify({ jsonrpc: "2.0", method: "invokefunction", params: ["0xfffdc93764dbaddd97c48f252a53ea4643faa3fd", "getContract", [{ type: "Hash160", value: G.scriptHash }], []], id: 1 }) })
-        .then((data) => data.json())
-        .then(({ result }) => {
-            const getBalance = () => G.N3.getBalance().then((result) => console.log(result));
-            const [b1, b2] = [document.getElementById("b1"), document.getElementById("b2")];
-            const [{ value: v1 }, { value: v2 }] = result.stack[0].value.slice(-1)[0].value[4].value;
-            [...v1, ...v2].forEach(({ value: [{ value }, { value: params }] }) => {
-                const method = atob(value);
-                const args = [];
-                const b = document.createElement("button");
-                b.innerText = method;
-                b.onclick = () => {
-                    if (!G.addressHash) return alert('not connected!')
-                    for ({ value: [{ value: m }, { value: t }] } of params) {
-                        const value = prompt(atob(m));
-                        if (value !== null) args.push({ type: G.type[t], value });
-                        else throw new Error("empty argument");
-                    }
-                    G.N3.invoke({ args, operation: method, fee: "0", broadcastOverride: false, scriptHash: G.scriptHash, signers: [{ account: G.addressHash, scopes: 1 }] })
-                        .then(({ txid }) => console.log(txid));
-                }
-                if (params.length == 0) b1.appendChild(b);
-                else b2.appendChild(b);
+    addEventListener("NEOLine.N3.EVENT.READY", () => N = new NEOLineN3.Init());
+    function f({ value }) {
+        N.invokeRead({ scriptHash: '0xfffdc93764dbaddd97c48f252a53ea4643faa3fd', operation: 'getContract', args: [{ type: "Hash160", value }], signers: [], }).then(v => {
+            v.stack[0].value[4].value[4].value[0].value.forEach(v => {
+                console.log(v);
             });
         });
+    }
+    // fetch(G.MAINNET, { method: "POST", body: JSON.stringify({ jsonrpc: "2.0", method: "invokefunction", params: ["0xfffdc93764dbaddd97c48f252a53ea4643faa3fd", "getContract", [{ type: "Hash160", value: G.scriptHash }], []], id: 1 }) })
+    //     .then((data) => data.json())
+    //     .then(({ result }) => {
+    //         const getBalance = () => G.N3.getBalance().then((result) => console.log(result));
+    //         const [b1, b2] = [document.getElementById("b1"), document.getElementById("b2")];
+    //         const [{ value: v1 }, { value: v2 }] = result.stack[0].value.slice(-1)[0].value[4].value;
+    //         [...v1, ...v2].forEach(({ value: [{ value }, { value: params }] }) => {
+    //             const method = atob(value);
+    //             const args = [];
+    //             const b = document.createElement("button");
+    //             b.innerText = method;
+    //             b.onclick = () => {
+    //                 if (!G.addressHash) return alert('not connected!')
+    //                 for ({ value: [{ value: m }, { value: t }] } of params) {
+    //                     const value = prompt(atob(m));
+    //                     if (value !== null) args.push({ type: G.type[t], value });
+    //                     else throw new Error("empty argument");
+    //                 }
+    //                 G.N3.invoke({ args, operation: method, fee: "0", broadcastOverride: false, scriptHash: G.scriptHash, signers: [{ account: G.addressHash, scopes: 1 }] })
+    //                     .then(({ txid }) => console.log(txid));
+    //             }
+    //             if (params.length == 0) b1.appendChild(b);
+    //             else b2.appendChild(b);
+    //         });
+    //     });
 </script>
