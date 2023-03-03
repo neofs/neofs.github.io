@@ -1,24 +1,2 @@
-<input style="width: 100%;" onblur="f(this)" />
-<script>
-    T = { 0: "Any", 16: "Boolean", 17: "Integer", 18: "ByteString", 19: "String", 20: "Address", 21: "Uint256", 22: "ECPoint", 255: "void", }
-    addEventListener('NEOLine.N3.EVENT.READY', () => N = new NEOLineN3.Init());
-    function f(val) {
-        (sel => N.invokeRead({ scriptHash: '0xfffdc93764dbaddd97c48f252a53ea4643faa3fd', operation: 'getContract', args: [{ type: 'Hash160', value: val.value }], signers: [] }).then(({ stack: [{ value: [, , , , { value: [, , , , { value: [{ value }] }] }] }] }) => {
-            value.forEach(({ value: [{ value: name }, { value: args }] }) => { const option = document.createElement('option'); option.value = option.innerText = atob(name); sel.appendChild(option); });
-            const br = document.createElement('button');
-            br.innerText = 'TRY';
-            br.onclick = () => {
-                N.getAccount().then(({ address }) => N.invokeRead({ scriptHash: val.value, operation: sel.value, args: value.find(({ value: [{ value }] }) => atob(value) === sel.value).value[1].value.map(({ value: [{ value: name }, { value: type }] }, i) => ({ type: T[type], value: prompt(`ENTER ${i + 1}-th ARG [NAME: ${atob(name)}] (TYPE: ${T[type]}) OF FUNC ${sel.value}:`) ?? eval('?') })), signers: [{ account: address, scopes: 1 }] }).then(v => confirm(`STATE: ${v.state}\nSTACK: ${JSON.stringify(v.stack)}\nCOPY STACK TO CLIPBOARD?`) ? navigator.clipboard.writeText(JSON.stringify(v.stack)) : void 0)).catch(alert);
-            }
-            const bw = document.createElement('button');
-            bw.innerText = 'TX';
-            bw.onclick = () => {
-                console.log(sel.value);
-            }
-            sel.style.width = '100%';
-            br.style.width = '100%';
-            bw.style.width = '100%';
-            document.body.replaceChildren(val, sel, br, bw);
-        }).finally(() => val.disabled = false))(document.createElement('select'), val.disabled = true);
-    }
-</script>
+<input style="width: 100%;" onblur="(sel => N.invokeRead({ scriptHash: '0xfffdc93764dbaddd97c48f252a53ea4643faa3fd', operation: 'getContract', args: [{ type: 'Hash160', value: this.value }], signers: [] }).then(({ stack: [{ value: [, , , , { value: [, , , , { value: [{ value }] }] }] }] }) => { value.forEach(({ value: [{ value: name }, { value: args }] }) => { const option = document.createElement('option'); option.value = option.innerText = atob(name); sel.appendChild(option); }); const br = document.createElement('button'); br.innerText = 'TRY'; br.onclick = () => N.getAccount().then(({ address }) => N.invokeRead({ scriptHash: this.value, operation: sel.value, args: value.find(({ value: [{ value }] }) => atob(value) === sel.value).value[1].value.map(({ value: [{ value: name }, { value: type }] }, i) => ({ type: T[type], value: prompt(`ENTER ${i + 1}-th ARG [NAME: ${atob(name)}] (TYPE: ${T[type]}) OF FUNC ${sel.value}:`) ?? eval('?') })), signers: [{ account: address, scopes: 1 }] }).then(v => confirm(`STATE: ${v.state}\nSTACK: ${JSON.stringify(v.stack)}\nCOPY STACK TO CLIPBOARD?`) ? setTimeout(() => navigator.clipboard.writeText(JSON.stringify(v.stack))) : void 0)).catch(() => alert('ERROR')); const bw = document.createElement('button'); bw.innerText = 'TX'; bw.onclick = () => N.getAccount().then(({ address }) => N.invoke({ scriptHash: this.value, operation: sel.value, args: value.find(({ value: [{ value }] }) => atob(value) === sel.value).value[1].value.map(({ value: [{ value: name }, { value: type }] }, i) => ({ type: T[type], value: prompt(`ENTER ${i + 1}-th ARG [NAME: ${atob(name)}] (TYPE: ${T[type]}) OF FUNC ${sel.value}:`) ?? eval('?') })), signers: [{ account: address, scopes: 1 }] })).catch(() => alert('ERROR')); bw.style.width = br.style.width = sel.style.width = '100%'; document.body.replaceChildren(this, sel, br, bw); }).finally(() => this.disabled = false))(document.createElement('select'), this.disabled = true)" />
+<script>T = { 0: "Any", 16: "Boolean", 17: "Integer", 18: "ByteString", 19: "String", 20: "Address", 21: "Uint256", 22: "ECPoint", 255: "void", }; addEventListener('NEOLine.N3.EVENT.READY', () => N = new NEOLineN3.Init());</script>
