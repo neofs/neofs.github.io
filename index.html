@@ -1,37 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="favicon.ico" />
-    <title>Neoburger Admin</title>
-    <style>
-        #b1 div,
-        #b2 div {
-            margin: 8px;
-            text-align: center;
-        }
-
-        #b1 button,
-        #b2 button {
-            margin: 3px;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="control">
-        <button id="wallet" onclick="getAccount()">WALLET</button>
-    </div>
-    <div id="b1">
-        <div>NO PARAMS</div>
-    </div>
-    <div id="b2">
-        <div>WITH PARAMS</div>
-    </div>
-</body>
-
-</html>
+<div id="b1">
+    <div>NO PARAMS</div>
+</div>
+<div id="b2">
+    <div>WITH PARAMS</div>
+</div>
 <script>
     const G = {
         MAINNET: "https://neofura.ngd.network",
@@ -39,20 +11,7 @@
         type: { 0: "Any", 16: "Boolean", 17: "Integer", 18: "ByteString", 19: "String", 20: "Address", 21: "Uint256", 22: "ECPoint", 255: "void", },
         scriptHash: "0x48c40d4666f93408be1bef038b6722404d9a4c2a",
     };
-
-    const getAccount = () => {
-        G.NEO.getAccount().then(({ address }) => document.getElementById("wallet").innerText = address)
-            .then((address) => G.addressHash = `0x${[...[...address].map((c) => G.BASE58CHARS.indexOf(c)).reduce((acc, i) => acc.map((j) => { const x = j * 58 + i; i = x >> 8; return x; }), new Uint8Array(25))].map((c) => c.toString(16).padStart(2, "0")).join("").slice(8, 48)}`)
-            .catch((error) => console.log(error));
-    };
-
-    window.addEventListener("NEOLine.NEO.EVENT.READY", () => {
-        [G.NEO, G.N3] = [new window.NEOLine.Init(), new window.NEOLineN3.Init()];
-        G.NEO.addEventListener(G.NEO.EVENT.ACCOUNT_CHANGED, ({ address }) => (G.address = address));
-        G.NEO.addEventListener(G.NEO.EVENT.NETWORK_CHANGED, ({ defaultNetwork }) => (G.network = defaultNetwork));
-        G.NEO.addEventListener(G.NEO.EVENT.TRANSACTION_CONFIRMED, ({ txid }) => console.log(txid));
-        G.NEO.addEventListener(G.NEO.EVENT.DISCONNECTED, () => { });
-    });
+    window.addEventListener("NEOLine.N3.EVENT.READY", () => window.neolinen3 = new window.NEOLineN3.Init());
 
     fetch(G.MAINNET, { method: "POST", body: JSON.stringify({ jsonrpc: "2.0", method: "invokefunction", params: ["0xfffdc93764dbaddd97c48f252a53ea4643faa3fd", "getContract", [{ type: "Hash160", value: G.scriptHash }], []], id: 1 }) })
         .then((data) => data.json())
