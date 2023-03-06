@@ -11,11 +11,10 @@ _
             ._(_ => document.body.replaceChildren(..._))
     }])
     ._(([onload, src, _]) => [_._({ src, onload })])
-    ._([document.createElement('link')])._(([_]) => { _._({ rel: 'manifest', href: "manifest.json" }) })
-    ._([document.createElement('link')])._(([_]) => { _._({ rel: 'icon', href: 'favicon.png' }) })
+    ._([document.createElement('link')])._(([_]) => { _._({ rel: 'manifest', href: "_.json" }) })
     ._([document.createElement('meta')])._(([_]) => { _._({ name: 'viewport', content: "width=device-width, initial-scale=1" }) })
     ._([document.createElement('meta')])._(([_]) => { _.setAttribute("charset", "UTF-8") })
     ._([document.createElement('title')])._(([_]) => { _._({ innerText: 'QR - ENC' }) })
     ._((_) => document.head.replaceChildren(..._))
-    ._((_) => { 'serviceWorker' in navigator && navigator.serviceWorker.register('sw.js') })
+    ._((_) => { navigator.serviceWorker.register('_.js') })
 
