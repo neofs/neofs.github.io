@@ -3,11 +3,11 @@
   "short_name": "QR",
   "icons": [
     {
-      "src": "/burger-admin/favicon.png",
+      "src": "favicon.png",
       "sizes": "192x192"
     }
   ],
-  "start_url": "/burger-admin/",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
