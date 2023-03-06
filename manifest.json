@@ -1,14 +1,14 @@
-{  
-  "name": "QR",  
-  "short_name": "QR",  
-  "icons": [    
-    {  
-      "src": "/burger-admin/favicon.png",  
+{
+  "name": "QR",
+  "short_name": "QR",
+  "icons": [
+    {
+      "src": "/burger-admin/favicon.png",
       "sizes": "192x192"
     }
   ],
-  "start_url": "/burger-admin/",  
+  "start_url": "/burger-admin/",
   "display": "standalone",
-  "theme_color": "#385b7e",
-  "background_color": "#385b7e"
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }
