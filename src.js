@@ -12,14 +12,15 @@ _
     }])
     ._(([onload, src, _]) => [_._({ src, onload })])
     ._([document.createElement('link')])._(([_]) => {
+        const path = location.origin
         _._({
             rel: 'manifest', href: URL.createObjectURL(new Blob([JSON.stringify({
                 "name": "QR - ENC",
-                "icons": [{ "src": "favicon.svg", "purpose": "any maskable monochrome", "sizes": "16x16 32x32 64x64 128x128 256x256 512x512" }],
-                "start_url": ".",
+                "icons": [{ "src": path + "/favicon.png", "sizes": "192x192" }],
+                "start_url": path,
                 "share_target":
                 {
-                    "action": "share",
+                    "action": path + "/share",
                     "method": "POST",
                     "enctype": "multipart/form-data",
                     "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": ["*"] }] }
