@@ -11,7 +11,19 @@ _
             ._(_ => document.body.replaceChildren(..._))
     }])
     ._(([onload, src, _]) => [_._({ src, onload })])
-    ._([document.createElement('link')])._(([_]) => { _._({ rel: 'manifest', href: "_.json" }) })
+    ._([document.createElement('link')])._(([_]) => {
+        _._({
+            rel: 'manifest', href: URL.createObjectURL(new Blob([JSON.stringify({
+                name: "QR",
+                short_name: "QR",
+                icons: [{ src: "favicon.png", sizes: "192x192" }],
+                start_url: ".",
+                display: "standalone",
+                theme_color: "#000000",
+                background_color: "#ffffff"
+            })], { type: 'application/json' }))
+        })
+    })
     ._([document.createElement('meta')])._(([_]) => { _._({ name: 'viewport', content: "width=device-width, initial-scale=1" }) })
     ._([document.createElement('meta')])._(([_]) => { _.setAttribute("charset", "UTF-8") })
     ._([document.createElement('title')])._(([_]) => { _._({ innerText: 'QR - ENC' }) })
