@@ -14,13 +14,17 @@ _
     ._([document.createElement('link')])._(([_]) => {
         _._({
             rel: 'manifest', href: URL.createObjectURL(new Blob([JSON.stringify({
-                name: "QR",
-                short_name: "QR",
-                icons: [{ src: "favicon.png", sizes: "192x192" }],
-                start_url: ".",
-                display: "standalone",
-                theme_color: "#000000",
-                background_color: "#ffffff"
+                "name": "QR - ENC",
+                "icons": [{ "src": "favicon.svg", "purpose": "any maskable monochrome", "sizes": "16x16 32x32 64x64 128x128 256x256 512x512" }],
+                "start_url": ".",
+                "share_target":
+                {
+                    "action": "share",
+                    "method": "POST",
+                    "enctype": "multipart/form-data",
+                    "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": ["*"] }] }
+                },
+                "display": "standalone"
             })], { type: 'application/json' }))
         })
     })
