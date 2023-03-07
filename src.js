@@ -4,37 +4,42 @@ _
     ._([_ => {
         _
             ._([document.createElement('img')])
-            ._([document.createElement('br')])
+            ._(([_]) => { _._(_ => _.style)._({ maxWidth: '100%' }) })
+            ._(([_]) => { _._({ src: 'favicon.svg' }) })
+            ._(([$]) => { dispatchEvent(new Event('qr')._({ f: _ => QRCode.toDataURL(_).then(_ => { $._({ src: _ }) }).catch(_ => alert('FAILED')) })) })
             ._([document.createElement('textarea')])
-            ._(([_]) => { _._(_ => _.style)._({ width: '100%' }) })
-            ._(([_, , $]) => { _._({ oninput: _ => _._(_ => _.target.value)._(_ => QRCode.toDataURL(`${_}`).then(_ => { $._({ src: _ }) })) }) })
+            ._(([_]) => { _._({ rows: 8, placeholder: 'enter text here ...' }) })
+            ._(([_]) => { _._(_ => _.style)._({ width: '100%', display: 'block' }) })
+            ._(([_, $]) => { _._({ oninput: _ => _._(_ => _.target.value)._(_ => `${_}` ? QRCode.toDataURL(`${_}`).then(_ => { $._({ src: _ }) }) : $._({ src: 'favicon.svg' })) }) })
+            ._([document.createElement('h1')])
+            ._(([_]) => { _._({ innerText: 'QR - ENC' }) })
             ._(_ => document.body.replaceChildren(..._))
     }])
     ._(([onload, src, _]) => [_._({ src, onload })])
+    ._([document.createElement('meta')])
+    ._(([_]) => { _._({ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }) })
     ._([document.createElement('link')])._(([_]) => {
         const path = location.origin
         _._({
             rel: 'manifest', href: URL.createObjectURL(new Blob([JSON.stringify({
-                "short_name": "QR",
-                "name": "QR",
+                "name": "QR - ENC",
                 "icons": [{ "src": path + "/favicon.png", "sizes": "192x192" }],
                 "start_url": path,
-                "share_target":
-                {
-                    "action": path + "/share",
-                    "method": "POST",
-                    "enctype": "multipart/form-data",
-                    "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": "*/*" }] }
-                },
-                "display": "standalone",
-                "theme_color": "#000000",
-                "background_color": "#ffffff",
+                "share_target": { "action": path + "/share", "method": "POST", "enctype": "multipart/form-data", "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": ["*/*", ".*"] }] } },
+                "display": "standalone"
             })], { type: 'application/json' }))
         })
     })
-    ._([document.createElement('meta')])._(([_]) => { _._({ name: 'viewport', content: "width=device-width, initial-scale=1" }) })
-    ._([document.createElement('meta')])._(([_]) => { _.setAttribute("charset", "UTF-8") })
-    ._([document.createElement('title')])._(([_]) => { _._({ innerText: 'QR - ENC' }) })
-    ._((_) => document.head.replaceChildren(..._))
-    ._((_) => { navigator.serviceWorker.register('_.js') })
+    ._([document.createElement('link')])
+    ._(([_]) => { _._({ rel: 'icon', href: 'favicon.svg' }) })
+    ._([document.createElement('meta')])
+    ._(([_]) => { _.setAttribute('charset', 'UTF-8') })
+    ._([document.createElement('title')])
+    ._(([_]) => { _._({ innerText: 'QR - ENC' }) })
+    ._(_ => document.head.replaceChildren(..._))
+    ._(_ => document.body.replaceChildren('LOADING ...'))
+    ._(_ => document.body.style._({ textAlign: 'center' }))
+    ._(_ => navigator.serviceWorker?.register('_.js'))
+    ._(_ => navigator.serviceWorker?.addEventListener("message", _ => window.addEventListener('qr', ({ f }) => { f(_.data.files.length > 0 ? _.data.files[0].text() : _.data.url ?? _.data.text ?? _.data.title) })))
+
 
