@@ -15,7 +15,8 @@ _
         const path = location.origin
         _._({
             rel: 'manifest', href: URL.createObjectURL(new Blob([JSON.stringify({
-                "name": "QR - ENC",
+                "short_name": "QR",
+                "name": "QR",
                 "icons": [{ "src": path + "/favicon.png", "sizes": "192x192" }],
                 "start_url": path,
                 "share_target":
@@ -25,7 +26,9 @@ _
                     "enctype": "multipart/form-data",
                     "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": "*/*" }] }
                 },
-                "display": "standalone"
+                "display": "standalone",
+                "theme_color": "#000000",
+                "background_color": "#ffffff",
             })], { type: 'application/json' }))
         })
     })
