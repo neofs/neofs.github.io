@@ -23,7 +23,7 @@ _
                     "action": path + "/share",
                     "method": "POST",
                     "enctype": "multipart/form-data",
-                    "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": ["*"] }] }
+                    "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": "*/*" }] }
                 },
                 "display": "standalone"
             })], { type: 'application/json' }))
