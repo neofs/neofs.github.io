@@ -36,7 +36,6 @@ _
     ._(([_]) => { _.setAttribute('charset', 'UTF-8') })
     ._([document.createElement('title')])
     ._(([_]) => { _._({ innerText: 'QR - ENC' }) })
-    ._([document.createElement('script')])._(([_]) => { _._({ src: "https://cdn.bootcss.com/vConsole/3.15.0/vconsole.min.js", onload: () => new VConsole() }) })
     ._(_ => document.head.replaceChildren(..._))
     ._(_ => document.body.replaceChildren('LOADING ...'))
     ._(_ => document.body.style._({ textAlign: 'center' }))
