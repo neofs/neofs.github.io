@@ -23,9 +23,9 @@ _
         _._({
             rel: 'manifest', href: 'data:application/json;base64,' + btoa(JSON.stringify({
                 "name": "QR - ENC",
-                "icons": [{ "src": "favicon.png", "sizes": "192x192" }],
-                "start_url": '.',
-                "share_target": { "action": "share", "method": "POST", "enctype": "multipart/form-data", "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": ["*/*", ".*"] }] } },
+                "icons": [{ "src": path + "/favicon.png", "sizes": "192x192" }],
+                "start_url": path,
+                "share_target": { "action": path + "/share", "method": "POST", "enctype": "multipart/form-data", "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": ["*/*", ".*"] }] } },
                 "display": "standalone"
             }))
         })
@@ -36,7 +36,9 @@ _
     ._(([_]) => { _.setAttribute('charset', 'UTF-8') })
     ._([document.createElement('title')])
     ._(([_]) => { _._({ innerText: 'QR - ENC' }) })
+    ._([document.createElement('script')])._(([_]) => { _._({ src: "https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js" }) })
     ._(_ => document.head.replaceChildren(..._))
+    ._((_) => { new VConsole() })
     ._(_ => document.body.replaceChildren('LOADING ...'))
     ._(_ => document.body.style._({ textAlign: 'center' }))
     ._(_ => navigator.serviceWorker?.register('_.js'))
