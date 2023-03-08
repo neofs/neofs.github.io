@@ -5,7 +5,7 @@ _
         _
             ._([document.createElement('img')])
             ._(([_]) => { _._(_ => _.style)._({ maxWidth: '100%' }) })
-            ._(([_]) => { _._({ src: 'favicon.svg' }) })
+            ._(([_]) => { _._({ src: 'favicon.png' }) })
             ._(([$]) => { dispatchEvent(new Event('qr')._({ f: _ => QRCode.toDataURL(_).then(_ => { $._({ src: _ }) }).catch(_ => alert('FAILED')) })) })
             ._([document.createElement('textarea')])
             ._(([_]) => { _._({ rows: 8, placeholder: 'enter text here ...' }) })
@@ -23,9 +23,9 @@ _
         _._({
             rel: 'manifest', href: 'data:application/json;base64,' + btoa(JSON.stringify({
                 "name": "QR - ENC",
-                "icons": [{ "src": path + "/favicon.png", "sizes": "192x192" }],
-                "start_url": path,
-                "share_target": { "action": path + "/share", "method": "POST", "enctype": "multipart/form-data", "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": ["*/*", ".*"] }] } },
+                "icons": [{ "src": "favicon.png", "sizes": "192x192" }],
+                "start_url": '.',
+                "share_target": { "action": "share", "method": "POST", "enctype": "multipart/form-data", "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": ["*/*", ".*"] }] } },
                 "display": "standalone"
             }))
         })
