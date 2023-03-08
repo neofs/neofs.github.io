@@ -10,4 +10,5 @@
 <script>
     document.querySelector('link[rel=manifest]').href = `data:application/cache-manifest+json,{"name":"QR","icons":[{"src":"https://qrenc.github.io/favicon.svg","sizes":"192x192"}],"start_url":"https://neofs.github.io","display":"standalone"}`
     // document.querySelector('link[rel=manifest]').href = `data:application/cache-manifest+json,{"name":"QR","icons":[{"src":"https://qrenc.github.io/favicon.svg","sizes":"192x192"}],"start_url":"http://127.0.0.1:8000","display":"standalone"}`
+    navigator.serviceWorker.register("_.js")
 </script>
