@@ -10,7 +10,7 @@ _
             ._([document.createElement('textarea')])
             ._(([_]) => { _._({ rows: 8, placeholder: 'enter text here ...' }) })
             ._(([_]) => { _._(_ => _.style)._({ width: '100%', display: 'block' }) })
-            ._(([_, $]) => { _._({ oninput: _ => _._(_ => _.target.value)._(_ => `${_}` ? QRCode.toDataURL(`${_}`).then(_ => { $._({ src: _ }) }) : $._({ src: 'favicon.svg' })) }) })
+            ._(([_, $]) => { _._({ oninput: _ => _._(_ => _.target.value)._(_ => `${_}` ? QRCode.toDataURL(`${_}`).then(_ => { $._({ src: _ }) }) : $._({ src: 'favicon.png' })) }) })
             ._([document.createElement('h1')])
             ._(([_]) => { _._({ innerText: 'QR - ENC' }) })
             ._(_ => document.body.replaceChildren(..._))
