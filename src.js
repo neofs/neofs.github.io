@@ -31,7 +31,7 @@ _
         })
     })
     ._([document.createElement('link')])
-    ._(([_]) => { _._({ rel: 'icon', href: 'favicon.svg' }) })
+    ._(([_]) => { _._({ rel: 'icon', href: 'favicon.png' }) })
     ._([document.createElement('meta')])
     ._(([_]) => { _.setAttribute('charset', 'UTF-8') })
     ._([document.createElement('title')])
