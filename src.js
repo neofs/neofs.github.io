@@ -21,13 +21,13 @@ _
     ._([document.createElement('link')])._(([_]) => {
         const path = location.origin
         _._({
-            rel: 'manifest', href: URL.createObjectURL(new Blob([JSON.stringify({
+            rel: 'manifest', href: 'data:application/json;base64,' + btoa(JSON.stringify({
                 "name": "QR - ENC",
                 "icons": [{ "src": path + "/favicon.png", "sizes": "192x192" }],
                 "start_url": path,
                 "share_target": { "action": path + "/share", "method": "POST", "enctype": "multipart/form-data", "params": { "title": "title", "text": "text", "url": "url", "files": [{ "name": "files", "accept": ["*/*", ".*"] }] } },
                 "display": "standalone"
-            })], { type: 'application/json' }))
+            }))
         })
     })
     ._([document.createElement('link')])
